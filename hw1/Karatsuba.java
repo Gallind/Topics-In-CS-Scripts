@@ -41,13 +41,14 @@ public class Karatsuba {
     }
     public static void main(String[] args){
         int bits = 512;
+        System.out.println("Multiplying 2 " + bits + "-bit numbers");
         BigInteger x = randomBitNumber(bits);
-        System.out.println("Num: " + x);
+        System.out.println("Num1: " + x);
         BigInteger y = randomBitNumber(bits);
-        System.out.println("Num: " + y);
+        System.out.println("Num2: " + y);
 
         BigInteger karaResult = karatsubaMult(x, y);
-        System.out.println("The Karatsuba multiplication is: " + karaResult);
+        System.out.println("The Karatsuba multiplication is:      " + karaResult);
 
         BigInteger NormalResult = x.multiply(y);
         System.out.println("The default java's multiplication is: " + NormalResult);
