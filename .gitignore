@@ -1,3 +1,10 @@
+hw1/out/*
+hw1/.DS_Store
+hw1/.idea/.gitignore
+hw1/.idea/misc.xml
+hw1/.idea/modules.xml
+hw1/hw1 15.53.23.iml
+
 # Compiled class file
 *.class
 
