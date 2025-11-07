@@ -40,7 +40,7 @@ public class Karatsuba {
         return msbOne.add(randPart);
     }
     public static void main(String[] args){
-        int bits = 4;
+        int bits = 512;
         BigInteger x = randomBitNumber(bits);
         System.out.println("Num: " + x);
         BigInteger y = randomBitNumber(bits);
