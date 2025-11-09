@@ -12,4 +12,13 @@ public class BigRandom {
         BigInteger randPart = new BigInteger(bits - 1, random);
         return msbOne.add(randPart);
     }
+    public static BigInteger randomRange(BigInteger N){
+        Random random = new Random();
+        int bits = N.bitLength();
+        BigInteger result = new BigInteger(bits, random);
+        while (result.compareTo(N) >= 0){
+            result = new BigInteger(bits, random);
+        }
+        return result;
+    }
 }
