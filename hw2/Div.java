@@ -5,44 +5,66 @@ import java.util.Random;
 import CommonFunctions.*;
 
 
+class BigTuple{
+    BigInteger x;
+    BigInteger y;
+    public BigTuple(){
+        this.x = BigInteger.ZERO;
+        this.y = BigInteger.ZERO;
+    }
+    public BigTuple(BigInteger x, BigInteger y){
+        this.x = x;
+        this.y = y;
+    }
+    public BigInteger getX(){
+        return this.x;
+    }
+    public BigInteger getY(){
+        return this.y;
+    }
+    public void setX(BigInteger x){
+        this.x = x;
+    }
+    public void setY(BigInteger y){
+        this.y = y;
+    }
+}
+
+
 public class Div {
-
-    private static BigInteger findLargestFib(BigInteger num){
-        BigInteger a = BigInteger.ZERO, b = BigInteger.ONE;
-        if (num.compareTo(BigInteger.ZERO) <= 0) return BigInteger.ZERO;
-
-        while (!(a.add(b).compareTo(num) > 0)){
-            BigInteger temp = b;
-            b = a.add(b);
-            a = temp;
+    public static BigTuple divFunc(BigInteger x, BigInteger y){
+        return recursiveDivFunc(x, y);
+    }
+    private static BigTuple recursiveDivFunc(BigInteger x, BigInteger y){
+        if (x.equals(BigInteger.ZERO)) return new BigTuple();
+        BigInteger halfX = x.shiftRight(1);
+        BigTuple qr = recursiveDivFunc(halfX, y);
+        BigInteger q = qr.getX();
+        BigInteger r = qr.getY();
+        q = q.shiftLeft(1);
+        r = r.shiftLeft(1);
+        if (x.mod(BigInteger.TWO).equals(BigInteger.ONE)) r = r.add(BigInteger.ONE);
+        if (r.compareTo(y) >= 0){
+            r = r.subtract(y);
+            q = q.add(BigInteger.ONE);
         }
-        return b;
+        qr.setX(q);
+        qr.setY(r);
+        return qr;
     }
 
-    private static ArrayList<BigInteger> zeckendorfRepresentation(BigInteger num){
-        ArrayList<BigInteger> zeckRep = new ArrayList<>();
-        if (num.compareTo(BigInteger.ZERO) <= 0) return zeckRep;
-
-        while (num.compareTo(BigInteger.ZERO) > 0){
-            BigInteger largestFib = findLargestFib(num);
-            num = num.subtract(largestFib);
-            zeckRep.add(largestFib);
-        }
-        return zeckRep;
-    }
-
-    private static BigInteger randomBitNumber(int bits){
-        Random random = new Random();
-        BigInteger msbOne = BigInteger.ONE.shiftLeft(bits - 1);
-        BigInteger randPart = new BigInteger(bits - 1, random);
-        return msbOne.add(randPart);
-    }
 
     public static void main(String[] args) {
         int bits = 8;
-        BigInteger randNum1 = randomBitNumber(bits);
-        System.out.println("Num:                               " + randNum1);
-        ArrayList<BigInteger> zeckRep3 = zeckendorfRepresentation(randNum1);
-        System.out.println("Its Zeckendorf representation is: " + zeckRep3.toString());
+        System.out.println("Testing Div of number with "+ bits + " bits:");
+        BigInteger randNum1 = CommonFunctions.BigRandom.randomBitNumber(bits);
+        System.out.println("X:                               " + randNum1);
+        //BigInteger randNum2 = CommonFunctions.BigRandom.randomBitNumber(bits);
+        BigInteger randNum2 = new BigInteger("23");
+        System.out.println("Y:                               " + randNum2);
+        System.out.println("Computing X=qY+r...");
+        BigTuple result = divFunc(randNum1, randNum2);
+        System.out.println("q = " + result.getX());
+        System.out.println("r = " + result.getY());
     }
 }

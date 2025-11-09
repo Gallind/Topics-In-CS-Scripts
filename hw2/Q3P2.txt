@@ -1,0 +1,6 @@
+Testing Div of number with 8 bits:
+X:                               180
+Y:                               23
+Computing X=qY+r...
+q = 7
+r = 19
