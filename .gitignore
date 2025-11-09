@@ -1,3 +1,7 @@
+
+
+out/
+.DS_Store
 hw1/out/*
 hw1/.DS_Store
 hw1/.idea/.gitignore

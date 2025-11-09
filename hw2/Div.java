@@ -1,9 +1,9 @@
-package hw1;
+package hw2;
 import java.util.ArrayList;
 import java.math.BigInteger;
 import java.util.Random;
 
-public class Zeckendorf {
+public class Div {
 
     private static BigInteger findLargestFib(BigInteger num){
         BigInteger a = BigInteger.ZERO, b = BigInteger.ONE;
@@ -37,7 +37,7 @@ public class Zeckendorf {
     }
 
     public static void main(String[] args) {
-        int bits = 80;
+        int bits = 8;
         BigInteger randNum1 = randomBitNumber(bits);
         System.out.println("Num:                               " + randNum1);
         ArrayList<BigInteger> zeckRep3 = zeckendorfRepresentation(randNum1);
