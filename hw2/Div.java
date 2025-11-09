@@ -2,6 +2,8 @@ package hw2;
 import java.util.ArrayList;
 import java.math.BigInteger;
 import java.util.Random;
+import CommonFunctions.*;
+
 
 public class Div {
 

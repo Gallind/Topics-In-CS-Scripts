@@ -2,6 +2,7 @@ package hw1;
 import java.util.ArrayList;
 import java.math.BigInteger;
 import java.util.Random;
+import CommonFunctions.*;
 
 public class Zeckendorf {
 
@@ -29,16 +30,10 @@ public class Zeckendorf {
         return zeckRep;
     }
 
-    private static BigInteger randomBitNumber(int bits){
-        Random random = new Random();
-        BigInteger msbOne = BigInteger.ONE.shiftLeft(bits - 1);
-        BigInteger randPart = new BigInteger(bits - 1, random);
-        return msbOne.add(randPart);
-    }
 
     public static void main(String[] args) {
         int bits = 80;
-        BigInteger randNum1 = randomBitNumber(bits);
+        BigInteger randNum1 = CommonFunctions.BigRandom.randomBitNumber(bits);
         System.out.println("Num:                               " + randNum1);
         ArrayList<BigInteger> zeckRep3 = zeckendorfRepresentation(randNum1);
         System.out.println("Its Zeckendorf representation is: " + zeckRep3.toString());

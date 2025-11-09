@@ -1,6 +1,7 @@
 package hw1;
 import java.math.BigInteger;
 import java.util.Random;
+import CommonFunctions.*;
 
 public class Karatsuba {
 
@@ -34,18 +35,13 @@ public class Karatsuba {
         BigInteger result = B1.add(B2).add(B3);
         return result;
     }
-    private static BigInteger randomBitNumber(int bits){
-        Random random = new Random();
-        BigInteger msbOne = BigInteger.ONE.shiftLeft(bits - 1);
-        BigInteger randPart = new BigInteger(bits - 1, random);
-        return msbOne.add(randPart);
-    }
+
     public static void main(String[] args){
         int bits = 512;
         System.out.println("Multiplying 2 " + bits + "-bit numbers");
-        BigInteger x = randomBitNumber(bits);
+        BigInteger x = CommonFunctions.BigRandom.randomBitNumber(bits);
         System.out.println("Num1: " + x);
-        BigInteger y = randomBitNumber(bits);
+        BigInteger y = CommonFunctions.BigRandom.randomBitNumber(bits);
         System.out.println("Num2: " + y);
 
         BigInteger karaResult = karatsubaMult(x, y);
