@@ -1,0 +1,6 @@
+Testing ModMult of a number N with 8 bits:
+N:                               225
+x:                               90
+y:                               77
+Computing z=qN+r...
+r = 180
