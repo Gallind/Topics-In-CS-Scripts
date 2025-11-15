@@ -12,6 +12,7 @@ public class TriTuple {
             this.y = BigInteger.ZERO;
         }
         public TriTuple(BigInteger x, BigInteger y){
+            this.d = BigInteger.ZERO;
             this.x = x;
             this.y = y;
         }
