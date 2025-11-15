@@ -5,40 +5,14 @@ import java.util.Random;
 import CommonFunctions.*;
 
 
-class BigTuple{
-    BigInteger x;
-    BigInteger y;
-    public BigTuple(){
-        this.x = BigInteger.ZERO;
-        this.y = BigInteger.ZERO;
-    }
-    public BigTuple(BigInteger x, BigInteger y){
-        this.x = x;
-        this.y = y;
-    }
-    public BigInteger getX(){
-        return this.x;
-    }
-    public BigInteger getY(){
-        return this.y;
-    }
-    public void setX(BigInteger x){
-        this.x = x;
-    }
-    public void setY(BigInteger y){
-        this.y = y;
-    }
-}
-
-
 public class Div {
-    public static BigTuple divFunc(BigInteger x, BigInteger y){
+    public static DuoTuple divFunc(BigInteger x, BigInteger y){
         return recursiveDivFunc(x, y);
     }
-    private static BigTuple recursiveDivFunc(BigInteger x, BigInteger y){
-        if (x.equals(BigInteger.ZERO)) return new BigTuple();
+    private static DuoTuple recursiveDivFunc(BigInteger x, BigInteger y){
+        if (x.equals(BigInteger.ZERO)) return new DuoTuple();
         BigInteger halfX = x.shiftRight(1);
-        BigTuple qr = recursiveDivFunc(halfX, y);
+        DuoTuple qr = recursiveDivFunc(halfX, y);
         BigInteger q = qr.getX();
         BigInteger r = qr.getY();
         q = q.shiftLeft(1);
@@ -63,7 +37,7 @@ public class Div {
         BigInteger randNum2 = new BigInteger("23");
         System.out.println("Y:                               " + randNum2);
         System.out.println("Computing X=qY+r...");
-        BigTuple result = divFunc(randNum1, randNum2);
+        DuoTuple result = divFunc(randNum1, randNum2);
         System.out.println("q = " + result.getX());
         System.out.println("r = " + result.getY());
     }

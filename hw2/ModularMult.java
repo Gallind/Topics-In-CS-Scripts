@@ -10,7 +10,7 @@ public class ModularMult {
 
     public static BigInteger modMult(BigInteger x, BigInteger y, BigInteger N){
         BigInteger z = Karatsuba.karatsubaMult(x, y);
-        hw2.BigTuple qr = hw2.Div.divFunc(z, N);
+        DuoTuple qr = hw2.Div.divFunc(z, N);
         return qr.getY();
     }
     public static void main(String[] args) {
