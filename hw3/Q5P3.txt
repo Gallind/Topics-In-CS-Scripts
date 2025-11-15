@@ -1,0 +1,5 @@
+Testing Modular Inverse of a number in Z_999331
+N:                               999331
+a:                               868458
+Computing a^-1 in ZN...
+a^-1 = 76649
