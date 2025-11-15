@@ -7,7 +7,17 @@ import CommonFunctions.*;
 
 public class Div {
     public static DuoTuple divFunc(BigInteger x, BigInteger y){
-        return recursiveDivFunc(x, y);
+        if (x.compareTo(BigInteger.ZERO) >= 0) return recursiveDivFunc(x, y);
+
+        DuoTuple qr = recursiveDivFunc(x.abs(), y);
+        BigInteger q = qr.getX();
+        BigInteger r = qr.getY();
+
+        if (r.equals(BigInteger.ZERO)) return new DuoTuple(q.negate(), r);
+
+        BigInteger newQ = q.add(BigInteger.ONE).negate();
+        BigInteger newR = y.subtract(r);
+        return new DuoTuple(newQ, newR);
     }
     private static DuoTuple recursiveDivFunc(BigInteger x, BigInteger y){
         if (x.equals(BigInteger.ZERO)) return new DuoTuple();
