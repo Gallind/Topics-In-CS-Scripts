@@ -1,0 +1,5 @@
+Testing Modular Inverse of a number in a field of max 5 bits:
+N:                               999331
+a:                               1234
+Computing a^-1 in ZN...
+a^-1 = 549875

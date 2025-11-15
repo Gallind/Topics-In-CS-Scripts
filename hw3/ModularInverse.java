@@ -17,9 +17,11 @@ public class ModularInverse {
     public static void main(String[] args) {
         int bits = 5;
         System.out.println("Testing Modular Inverse of a number in a field of max "+ bits + " bits:");
-        BigInteger N = CommonFunctions.BigRandom.randomBitNumber(bits);
+        //BigInteger N = CommonFunctions.BigRandom.randomBitNumber(bits);
+        BigInteger N = new BigInteger("999331");
         System.out.println("N:                               " + N);
-        BigInteger a = CommonFunctions.BigRandom.randomRange(N);
+        //BigInteger a = CommonFunctions.BigRandom.randomRange(N);
+        BigInteger a = new BigInteger("1234");
         System.out.println("a:                               " + a);
         System.out.println("Computing a^-1 in ZN...");
         BigInteger result = modInv(a, N);
