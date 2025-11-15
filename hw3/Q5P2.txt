@@ -1,4 +1,4 @@
-Testing Modular Inverse of 1234umber in Z_999331:
+Testing Modular Inverse of 1234 in Z_999331:
 N:                               999331
 a:                               1234
 Computing a^-1 in ZN...
