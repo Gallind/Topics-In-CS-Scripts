@@ -31,14 +31,14 @@ public class BigRandom {
         return result;
     }
     /**
-     * returns a random BigInteger with @param bits bits
+     * returns an odd random BigInteger with @param bits bits
      * @param bits
      * @return
      */
     public static BigInteger randomOddBitNumber(int bits){
         BigInteger num = randomBitNumber(bits);
-        while (num.mod(BigInteger.TWO) == BigInteger.ZERO) {
-            num = randomBitNumber(bits);
+        if (num.mod(BigInteger.TWO).equals(BigInteger.ZERO)) {
+            return num.add(BigInteger.ONE);
         }
         return num;
     }
