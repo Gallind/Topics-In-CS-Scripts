@@ -12,7 +12,7 @@ public class MillerRabin {
      * @param N
      * @return (u, r) when N - 1 = (2^r)*u and u is odd
      */
-    private static DuoTuple compute_UR(BigInteger N){
+    public static DuoTuple compute_UR(BigInteger N){
         if (N.mod(BigInteger.TWO) == BigInteger.ZERO) return new DuoTuple();
         N  = N.subtract(BigInteger.ONE);
         BigInteger r = BigInteger.ZERO;
@@ -23,7 +23,7 @@ public class MillerRabin {
         return new DuoTuple(N, r);
     }
 
-    private static BigInteger modExp(BigInteger base, BigInteger exp, BigInteger N){
+    public static BigInteger modExp(BigInteger base, BigInteger exp, BigInteger N){
         base = base.mod(N);//making sure
         BigInteger result = BigInteger.ONE;
 
@@ -43,10 +43,9 @@ public class MillerRabin {
      * @param N
      * @return True if N is probably a prime, False if N is for sure a composite
      */
-    public static boolean primalityTest(BigInteger a, BigInteger u, int r, BigInteger N){
-        //TODO
-        BigInteger lastElement = modExp(a, N.subtract(BigInteger.ONE), N);
-        if (!lastElement.equals(BigInteger.ONE)) return false;
+    public static boolean millerRabin(BigInteger a, BigInteger u, int r, BigInteger N){
+        // BigInteger lastElement = modExp(a, N.subtract(BigInteger.ONE), N);
+        // if (!lastElement.equals(BigInteger.ONE)) return false;
 
         BigInteger x = modExp(a, u, N);
         if (x.equals(BigInteger.ONE) || x.equals(N.subtract(BigInteger.ONE))) //checking first MR element
@@ -75,6 +74,6 @@ public class MillerRabin {
         System.out.println(N.subtract(BigInteger.ONE) + " = (2^" + r + ") * " + u);
         //System.out.println(modExp(ur.getX(), ur.getY(), N));
 
-        System.out.println(N + " is a " + ((primalityTest(a, u, r.intValue(), N)) ? "prime" : "composite"));
+        System.out.println(N + " is a " + ((millerRabin(a, u, r.intValue(), N)) ? "prime" : "composite"));
     }
 }
