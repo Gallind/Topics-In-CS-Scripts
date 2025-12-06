@@ -35,22 +35,46 @@ public class MillerRabin {
         }
         return result;
     }
-
-    public static boolean primalityTest(BigInteger a, BigInteger u, BigInteger r, BigInteger N){
+    /**
+     * 
+     * @param a
+     * @param u
+     * @param r Make sure to send the int version!!
+     * @param N
+     * @return True if N is probably a prime, False if N is for sure a composite
+     */
+    public static boolean primalityTest(BigInteger a, BigInteger u, int r, BigInteger N){
         //TODO
+        BigInteger lastElement = modExp(a, N.subtract(BigInteger.ONE), N);
+        if (!lastElement.equals(BigInteger.ONE)) return false;
+
+        BigInteger x = modExp(a, u, N);
+        if (x.equals(BigInteger.ONE) || x.equals(N.subtract(BigInteger.ONE))) //checking first MR element
+            return true;
+        
+        for (int i = 0; i < r - 1; i++){
+            x = hw2.ModularMult.modMult(x, x, N);
+            if (x.equals(N.subtract(BigInteger.ONE))) return true;
+            if (x.equals(BigInteger.ONE)) return false;
+        }
+
         return false;
     }
 
 
     public static void main(String[] args) {
-        int bits = 8;
+        int bits = 5;
         BigInteger N = BigRandom.randomOddBitNumber(bits);
         BigInteger a = BigRandom.randomRange(N);
-        System.out.println("N:\t\t" + N);
-        System.out.println("N - 1 = (2^r)*u");
+        System.out.println("N:\t\t" + N + "\na:\t\t" + a);
+        //System.out.println("N - 1 = (2^r)*u");
         DuoTuple ur = compute_UR(N);
-        System.out.println("u = \t\t" + ur.getX() +"\nr = \t\t" + ur.getY());
-        System.out.println(N.subtract(BigInteger.ONE) + " = (2^" + ur.getY() + ") * " + ur.getX());
-        System.out.println(modExp(ur.getX(), ur.getY(), N));
+        BigInteger u = ur.getX();
+        BigInteger r = ur.getY();
+        System.out.println("u = \t\t" + u +"\nr = \t\t" + r);
+        System.out.println(N.subtract(BigInteger.ONE) + " = (2^" + r + ") * " + u);
+        //System.out.println(modExp(ur.getX(), ur.getY(), N));
+
+        System.out.println(N + " is a " + ((primalityTest(a, u, r.intValue(), N)) ? "prime" : "composite"));
     }
 }
