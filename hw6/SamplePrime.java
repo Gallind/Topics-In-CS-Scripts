@@ -11,7 +11,7 @@ public class SamplePrime {
      * Running the MillerRabin algorithm @param k times on @param N
      * @return False if @param N is composite, True if it's probably a prime
      */
-    private static boolean primality(BigInteger N, int k){
+    public static boolean primality(BigInteger N, int k){
         if (N.equals(BigInteger.TWO)) return true;
         if (N.equals(BigInteger.ONE) || N.mod(BigInteger.TWO).equals(BigInteger.ZERO)) return false;
 
