@@ -24,7 +24,12 @@ public class SamplePrime {
         }
         return true;
     }
-
+    /**
+     * Sampling a random prime number of n bits and an error parameter k
+     * @param n number of bits that the prime number should have
+     * @param k the error parameter (how many primality checks are needed)
+     * @return (N, count) where @param N is probably a prime and @param count is the amount of attempts needed
+     */
     public static DuoTuple samplePrime(int n, int k){
         BigInteger N = BigRandom.randomOddBitNumber(n);
         boolean isPrime = primality(N, k);
@@ -34,15 +39,18 @@ public class SamplePrime {
             isPrime = primality(N, k);
             count = count.add(BigInteger.ONE);
         }
-        //System.out.println(count + " Attempts needed...");
         return new DuoTuple(N, count);
     }
-
+    /**
+     * Sampling @param amount prime numbers of @param n bits and an error parameter @param k
+     * prints to stdout the result
+     * @param n number of bits every prime number should have
+     * @param k error parameter
+     * @param amount number of prime numbers
+     */
     public static void sampleNPrimes(int n, int k, int amount){
         int sumAttempts = 0;
         String msg = "";
-        //msg = ("Sampling " + amount + " primes of " + n + " bits and "
-        //                     + k + " error parameter:\n\n");
         for (int i = 1; i <= amount; i++){
             msg += i + ".\t";
             DuoTuple primeAttempts = samplePrime(n, k);

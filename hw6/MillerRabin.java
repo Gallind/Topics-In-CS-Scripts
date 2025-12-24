@@ -22,7 +22,13 @@ public class MillerRabin {
         }
         return new DuoTuple(N, r);
     }
-
+    /**
+     * Computing the modular exponent of base^exp mod N
+     * @param base the base
+     * @param exp the exponent
+     * @param N the number we do mod to
+     * @return base^exp mod N
+     */
     public static BigInteger modExp(BigInteger base, BigInteger exp, BigInteger N){
         base = base.mod(N);//making sure
         BigInteger result = BigInteger.ONE;
@@ -36,7 +42,7 @@ public class MillerRabin {
         return result;
     }
     /**
-     * 
+     * Doing a  primality check using the Miller Rabin method we learned
      * @param a
      * @param u
      * @param r Make sure to send the int version!!
@@ -44,8 +50,6 @@ public class MillerRabin {
      * @return True if N is probably a prime, False if N is for sure a composite
      */
     public static boolean millerRabin(BigInteger a, BigInteger u, int r, BigInteger N){
-        // BigInteger lastElement = modExp(a, N.subtract(BigInteger.ONE), N);
-        // if (!lastElement.equals(BigInteger.ONE)) return false;
 
         BigInteger x = modExp(a, u, N);
         if (x.equals(BigInteger.ONE) || x.equals(N.subtract(BigInteger.ONE))) //checking first MR element
