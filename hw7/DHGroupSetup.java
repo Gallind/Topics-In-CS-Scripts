@@ -18,23 +18,12 @@ public class DHGroupSetup {
      */
     public static DuoTuple createPrimeDH(int bits, int k){
         BigInteger p, q;
-        int attempts = 0;
-
         while (true) {
-            System.out.println("Attempt number " + ++attempts);
-
-            // q = SamplePrime.samplePrime(bits, k).getX();
-            // BigInteger qMod3 = q.mod(new BigInteger("3"));
-            // if (qMod3.equals(BigInteger.ONE)) continue;
-            // p = q.shiftLeft(1).add(BigInteger.ONE);
-            // if(SamplePrime.primality(p, k)){
-            //     return new DuoTuple(p, q);
-            // }
-
             q = BigRandom.randomOddBitNumber(bits);
 
-            if (!SamplePrime.checkSmallPrimes(q)) continue; //checking q against a list of small known primes first
-            
+            //checking q against a list of small known primes first
+            if (!SamplePrime.checkSmallPrimes(q)) continue;
+
             BigInteger qMod3 = q.mod(new BigInteger("3"));
             if (!qMod3.equals(BigInteger.TWO)) continue; //else q === 1 mod 3 --> p = 2q + 1 === 0 mod 3
 
@@ -44,6 +33,13 @@ public class DHGroupSetup {
             if (isStrongPrime(q, p, k)) return new DuoTuple(p, q);
         }
     }
+    /**
+     * Checking if q and p are primes with error parameter k
+     * @param q
+     * @param p
+     * @param k error parameter
+     * @return true if both q, p are primes
+     */
     private static boolean isStrongPrime(BigInteger q, BigInteger p, int k){
         //fast checking both numbers for faster results
         if (!SamplePrime.primality(q, 1)) return false;

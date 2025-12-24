@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import CommonFunctions.BigRandom;
 import CommonFunctions.DuoTuple;
 import hw6.MillerRabin;
-import hw7.DHGroupSetup;
 
 public class DHProtocol {
     /**
