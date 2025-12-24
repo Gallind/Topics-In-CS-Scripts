@@ -34,8 +34,8 @@ public class DHProtocol {
     }
 
     public static void main(String[] args){
-        int bits = 3;
-        int k = 5;
+        int bits = 512;
+        int k = 40;
         DuoTuple pq = DHGroupSetup.createPrimeDH(bits, k);
         BigInteger p = pq.getX();
         BigInteger q = pq.getY();
