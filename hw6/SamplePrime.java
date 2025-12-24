@@ -7,6 +7,8 @@ import CommonFunctions.DuoTuple;
 
 public class SamplePrime {
 
+    private static final int[] SMALL_PRIMES = {3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53};
+
     /**
      * Running the MillerRabin algorithm @param k times on @param N
      * @return False if @param N is composite, True if it's probably a prime
@@ -14,16 +16,26 @@ public class SamplePrime {
     public static boolean primality(BigInteger N, int k){
         if (N.equals(BigInteger.TWO)) return true;
         if (N.equals(BigInteger.ONE) || N.mod(BigInteger.TWO).equals(BigInteger.ZERO)) return false;
+        if (!checkSmallPrimes(N)) return false;
 
+        DuoTuple ur = MillerRabin.compute_UR(N);
+        BigInteger u = ur.getX();
+        BigInteger r = ur.getY();
         for (int i = 0; i < k; i++){
             BigInteger a = BigRandom.randomRange(N.subtract(new BigInteger("3"))).add(BigInteger.TWO);//2 <= a < N
-            DuoTuple ur = MillerRabin.compute_UR(N);
-            BigInteger u = ur.getX();
-            BigInteger r = ur.getY();
             if (!MillerRabin.millerRabin(a, u, r.intValue(), N)) return false;
         }
         return true;
     }
+
+    public static boolean checkSmallPrimes(BigInteger n){
+        for (int prime : SMALL_PRIMES){
+            if(n.mod(BigInteger.valueOf(prime)).equals(BigInteger.ZERO))
+                return n.equals(BigInteger.valueOf(prime));
+        }
+        return true;
+    }
+
     /**
      * Sampling a random prime number of n bits and an error parameter k
      * @param n number of bits that the prime number should have
