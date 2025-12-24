@@ -34,11 +34,12 @@ public class DHGroupSetup {
      * @return a random generator of the subgroup of quadratic residues in which its order is q
      */
     public static BigInteger findGenerator(BigInteger p){
+        BigInteger q = p.subtract(BigInteger.ONE).shiftRight(1);
         BigInteger x, g;
         while (true) {
-            //sampling a random x from [2, p-2]
-            x = BigRandom.randomRange(p.subtract(new BigInteger("3"))).add(BigInteger.TWO);
-            g = MillerRabin.modExp(x, BigInteger.TWO, p); //g=x^2 so g is in G
+            //sampling a random x from [2, q-2]
+            x = BigRandom.randomRange(q.subtract(new BigInteger("3"))).add(BigInteger.TWO);
+            g = MillerRabin.modExp(x, BigInteger.TWO, q); //g=x^2 so g is in G
             //all elements in G except 1 are generators
             if (!g.equals(BigInteger.ONE)) return g;
         }

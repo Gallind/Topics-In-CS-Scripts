@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import CommonFunctions.BigRandom;
 import CommonFunctions.DuoTuple;
 import hw6.MillerRabin;
-import hw7.DHGroupSetup.*;
+import hw7.DHGroupSetup;
 
 public class DHProtocol {
     /**
@@ -34,6 +34,27 @@ public class DHProtocol {
     }
 
     public static void main(String[] args){
-        
+        int bits = 3;
+        int k = 5;
+        DuoTuple pq = DHGroupSetup.createPrimeDH(bits, k);
+        BigInteger p = pq.getX();
+        BigInteger q = pq.getY();
+        BigInteger g = DHGroupSetup.findGenerator(p);
+        System.out.println("p:\t" + p + "\nq:\t" + q + "\ng:\t" + g);
+
+        DuoTuple aGa = chooseKeyParts(p, q, g);
+        DuoTuple bGb = chooseKeyParts(p, q, g);
+        BigInteger a, ga, b, gb;
+        a = aGa.getX();
+        ga = aGa.getY();
+        b = bGb.getX();
+        gb = bGb.getY();
+        BigInteger aliceSK = computeSharedKey(gb, a, p);
+        BigInteger bobSK = computeSharedKey(ga, b, p);
+        System.out.println("\nAlice chooses a:\t" + a + "\ncomputes g^a:\t" + ga);
+        System.out.println("\nBob chooses b:\t" + b + "\ncomputes g^b:\t" + gb);
+        System.out.println("\nAlice computes (g^b)^a:\n\t" + aliceSK);
+        System.out.println("\nBob computes (g^a)^b:\n\t" + bobSK);
+        System.out.println("\n\nThe shared key is " + (aliceSK.equals(bobSK) ? "the same!" : "different!"));
     }
 }
