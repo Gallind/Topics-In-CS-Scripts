@@ -7,6 +7,12 @@ import hw2.Div;
 import java.math.BigInteger;
 
 public class ModularInverse {
+    /**
+     * Finding the modular inverse of a in the group Z_N
+     * @param a an element in the group
+     * @param N the group Z_N
+     * @return a^-1 thats in Z_N. Might return a negative value
+     */
     public static BigInteger modInv(BigInteger a, BigInteger N){
         TriTuple gcdDXY = EuclidianInverse.extendedEuclid(a.add(N), N);
         BigInteger gcd = gcdDXY.getD();

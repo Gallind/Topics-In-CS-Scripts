@@ -9,7 +9,13 @@ import hw6.SamplePrime;
 
 public class RSA {
     
-
+    /**
+     * Generating keys for RSA
+     * @param n number of bits on primes p, q
+     * @param e the public key
+     * @param k the error parameter
+     * @return (N, e, d) where N = p*q, e - public key, d - private key
+     */
     public static TriTuple generateKeys(int n, BigInteger e, int k){
         BigInteger p, q;
         
