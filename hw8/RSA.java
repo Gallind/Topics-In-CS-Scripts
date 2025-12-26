@@ -55,8 +55,8 @@ public class RSA {
         return MillerRabin.modExp(m, pk, N);
     }
 
-    public static BigInteger decryptCRT(BigInteger c, BigInteger d){
-
+    public static BigInteger decryptCRT(BigInteger c, BigInteger d, BigInteger p, BigInteger q){
+        //TODO: Implement this function (Solve q2 first!)
         return BigInteger.ZERO;
     }
 
