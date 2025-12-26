@@ -18,7 +18,10 @@ public class DHGroupSetup {
      */
     public static DuoTuple createPrimeDH(int bits, int k){
         BigInteger p, q;
+        int attempts = 0;
         while (true) {
+            attempts++;
+            // System.out.println("attempt number " + attempts++);
             q = BigRandom.randomOddBitNumber(bits);
 
             //checking q against a list of small known primes first
@@ -30,7 +33,10 @@ public class DHGroupSetup {
             p = q.shiftLeft(1).add(BigInteger.ONE);
             if (!SamplePrime.checkSmallPrimes(p)) continue;
 
-            if (isStrongPrime(q, p, k)) return new DuoTuple(p, q);
+            if (isStrongPrime(q, p, k)) {
+                System.out.println("Took " + attempts + " attempts");
+                return new DuoTuple(p, q);
+            }
         }
     }
     /**
