@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import CommonFunctions.DuoTuple;
 import CommonFunctions.TriTuple;
 import hw3.ModularInverse;
+import hw6.MillerRabin;
 import hw6.SamplePrime;
 
 public class RSA {
@@ -42,6 +43,24 @@ public class RSA {
 
         return new TriTuple(N, e, d);
     }
+
+    /**
+     * Encrypting the message m using the public key pk in the group N
+     * @param m the original message
+     * @param pk the public key
+     * @param N the group where N = pq for some primes p, q
+     * @return the encrypted message
+     */
+    public static BigInteger encrypt(BigInteger m, BigInteger pk, BigInteger N){
+        return MillerRabin.modExp(m, pk, N);
+    }
+
+    public static BigInteger decryptCRT(BigInteger c, BigInteger d){
+
+        return BigInteger.ZERO;
+    }
+
+
 
 
     public static void main(String[] args){
