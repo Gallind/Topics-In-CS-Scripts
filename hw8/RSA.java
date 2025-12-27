@@ -4,13 +4,14 @@ import java.math.BigInteger;
 
 import CommonFunctions.BigRandom;
 import CommonFunctions.DuoTuple;
-import CommonFunctions.TriTuple;
 import hw3.ModularInverse;
 import hw6.MillerRabin;
 import hw6.SamplePrime;
 
 public class RSA {
-
+    /**
+     * Helper class for generateKeys
+     */
     public static class RSAKeys{
         public BigInteger N;
         public BigInteger e;
@@ -71,6 +72,14 @@ public class RSA {
         return MillerRabin.modExp(m, pk, N);
     }
 
+    /**
+     * Decrypting using CRT as explained in Q2.5
+     * @param c the cyphertext
+     * @param d the private key
+     * @param p prime number and N = p * q
+     * @param q prime number and N = p * q
+     * @return a decrypted message
+     */
     public static BigInteger decryptCRT(BigInteger c, BigInteger d, BigInteger p, BigInteger q){
         BigInteger N = p.multiply(q);
 
@@ -92,9 +101,6 @@ public class RSA {
 
         return term1.add(term2).mod(N);
     }
-
-
-
 
     public static void main(String[] args){
         int bits = 512;
