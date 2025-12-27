@@ -2,6 +2,7 @@ package hw8;
 
 import java.math.BigInteger;
 
+import CommonFunctions.BigRandom;
 import CommonFunctions.DuoTuple;
 import CommonFunctions.TriTuple;
 import hw3.ModularInverse;
@@ -71,28 +72,50 @@ public class RSA {
     }
 
     public static BigInteger decryptCRT(BigInteger c, BigInteger d, BigInteger p, BigInteger q){
-        //TODO: Implement this function (Solve q2 first!)
-        return BigInteger.ZERO;
+        BigInteger N = p.multiply(q);
+
+        // d mod (p-1)     d mod (q-1)
+        BigInteger dp = d.mod(p.subtract(BigInteger.ONE));
+        BigInteger dq = d.mod(q.subtract(BigInteger.ONE));
+
+        //qInv = q^-1 mod p      pInv = p^-1 mod q
+        BigInteger qInv = ModularInverse.modInv(q, p);
+        BigInteger pInv = ModularInverse.modInv(p, q);
+
+        //mp = c^dp mod p          mq = c^dq mod q
+        BigInteger mp = MillerRabin.modExp(c, dp, p);
+        BigInteger mq = MillerRabin.modExp(c, dq, q);
+
+        // mp * q * q^-1           mq * p * p^-1
+        BigInteger term1 = mp.multiply(q).multiply(qInv);
+        BigInteger term2 = mq.multiply(p).multiply(pInv);
+
+        return term1.add(term2).mod(N);
     }
 
 
 
 
     public static void main(String[] args){
-        int bits = 6;
+        int bits = 5;
         int k = 5;
         BigInteger e = new BigInteger("3");
-
         System.out.println("Generating RSA keys using " + bits + " bits primes,\n" +
                             "e = " + e);
-        TriTuple keys = generateKeys(bits, e, k);
-        BigInteger N = keys.getD();
-        BigInteger pk = keys.getX();
-        BigInteger sk = keys.getY();
+        RSAKeys keys = generateKeys(bits, e, k);
+        BigInteger N = keys.N;
+        BigInteger pk = keys.e;
+        BigInteger sk = keys.d;
 
         System.out.println("N:\t" + N);
         System.out.println("public key:\t" + pk);
         System.out.println("secret key:\t" + sk);
+
+        BigInteger m = BigRandom.randomRange(N);
+        System.out.println("The message is m:\t" + m);
+
+        BigInteger c = encrypt(m, pk, N);
+        System.out.println("The encrypted message is:\t" + c);
     }
 
 }
