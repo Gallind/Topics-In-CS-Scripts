@@ -97,25 +97,32 @@ public class RSA {
 
 
     public static void main(String[] args){
-        int bits = 5;
-        int k = 5;
+        int bits = 512;
+        int k = 40;
         BigInteger e = new BigInteger("3");
         System.out.println("Generating RSA keys using " + bits + " bits primes,\n" +
                             "e = " + e);
         RSAKeys keys = generateKeys(bits, e, k);
         BigInteger N = keys.N;
-        BigInteger pk = keys.e;
-        BigInteger sk = keys.d;
+        // BigInteger e = keys.e;
+        BigInteger d = keys.d;
+        BigInteger p = keys.p;
+        BigInteger q = keys.q;
 
         System.out.println("N:\t" + N);
-        System.out.println("public key:\t" + pk);
-        System.out.println("secret key:\t" + sk);
+        System.out.println("public key:\t" + e);
+        System.out.println("secret key:\t" + d);
 
         BigInteger m = BigRandom.randomRange(N);
         System.out.println("The message is m:\t" + m);
 
-        BigInteger c = encrypt(m, pk, N);
+        BigInteger c = encrypt(m, e, N);
         System.out.println("The encrypted message is:\t" + c);
+
+        BigInteger decryptedM = decryptCRT(c, d, p, q);
+        System.out.println("The decrypted message is:\t" + decryptedM);
+
+        System.out.println("Decryption - " + (m.equals(decryptedM) ? "Success" : "Fail"));
     }
 
 }
