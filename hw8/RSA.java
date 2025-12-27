@@ -9,15 +9,30 @@ import hw6.MillerRabin;
 import hw6.SamplePrime;
 
 public class RSA {
+
+    public static class RSAKeys{
+        public BigInteger N;
+        public BigInteger e;
+        public BigInteger d;
+        public BigInteger p;
+        public BigInteger q;
+        public RSAKeys(BigInteger N, BigInteger e, BigInteger d, BigInteger p, BigInteger q){
+            this.N = N;
+            this.e = e;
+            this.d = d;
+            this.p = p;
+            this.q = q;
+        }
+    }
     
     /**
      * Generating keys for RSA
      * @param n number of bits on primes p, q
      * @param e the public key
      * @param k the error parameter
-     * @return (N, e, d) where N = p*q, e - public key, d - private key
+     * @return (N, e, d, p, q) where N = p*q, e - public key, d - private key, p&q - primes of @param n bits
      */
-    public static TriTuple generateKeys(int n, BigInteger e, int k){
+    public static RSAKeys generateKeys(int n, BigInteger e, int k){
         BigInteger p, q;
         
         while (true) {
@@ -41,7 +56,7 @@ public class RSA {
         BigInteger d = ModularInverse.modInv(e, phi);
         if (d.compareTo(BigInteger.ZERO) < 0) d = d.add(phi);
 
-        return new TriTuple(N, e, d);
+        return new RSAKeys(N, e, d, p, q);
     }
 
     /**

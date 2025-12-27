@@ -25,10 +25,10 @@ public class ModularInverse {
         //System.out.println("Testing Modular Inverse of a number in a field of max "+ bits + " bits:");
         System.out.println("Testing Modular Inverse of a number in Z_999331");
         //BigInteger N = CommonFunctions.BigRandom.randomBitNumber(bits);
-        BigInteger N = new BigInteger("999331");
+        BigInteger N = new BigInteger("7");
         System.out.println("N:                               " + N);
         //BigInteger a = CommonFunctions.BigRandom.randomRange(N);
-        BigInteger a = new BigInteger("1234");
+        BigInteger a = new BigInteger("11");
         System.out.println("a:                               " + a);
         System.out.println("Computing a^-1 in ZN...");
         BigInteger result = modInv(a, N);
